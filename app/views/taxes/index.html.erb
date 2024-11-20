@@ -1,0 +1,10 @@
+<h1>taxs#index</h1>
+<p>Find me in app/views/taxs/index.html.erb</p>
+<% @taxes.each do |tax|%>
+  <li>
+    <%= link_to tax.description, tax %>
+  </li>
+<%end %>
+
+
+<%= link_to "New tax", new_tax_path%>

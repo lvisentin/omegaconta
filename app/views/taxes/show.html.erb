@@ -1,0 +1,11 @@
+<h1><%= @tax.description %></h1>
+
+<p><%= @tax.amount %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_tax_path(@tax) %></li>
+  <li><%= link_to "Destroy", tax_path(@tax), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
