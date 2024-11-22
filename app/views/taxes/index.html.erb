@@ -1,10 +1,31 @@
-<h1>taxs#index</h1>
-<p>Find me in app/views/taxs/index.html.erb</p>
-<% @taxes.each do |tax|%>
-  <li>
-    <%= link_to tax.description, tax %>
-  </li>
-<%end %>
+<h1>Minhas Guias</h1>
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Empresa</th>
+        <th>Data de vencimento</th>
+        <th>Valor</th>
+        <th>Pago</th>
+        <th>Baixar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @taxes.each do |tax|%>
+        <tr>
+          <th><%= tax.id %></th>
+          <th><%= tax.company.name %></th>
+          <th><%= tax.due_date.strftime("%d/%m/%Y") %></th>
+          <th><%= number_to_currency tax.amount %></th>
+          <th><%= tax.paid %></th>
+          <th>
+            <%= link_to "Download" ,:action => :download %>
 
-
-<%= link_to "New tax", new_tax_path%>
+            <%# <%= button_to "Baixar", download_taxes_path, method: :post, params: { tax_url: tax.file } %> 
+          </th>
+        </tr>
+      <%end %>
+    </tbody>
+  </table>
+</div>

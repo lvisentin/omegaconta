@@ -1,4 +1,7 @@
 class TaxesController < ApplicationController
+  helper_method :download
+  require "open-uri"
+
   def index
     @taxes = Tax.all
   end
@@ -42,6 +45,9 @@ class TaxesController < ApplicationController
     redirect_to root_path, status: :see_other
   end
 
+  def download
+    send_file "/home/blog/downloads/away.png", type: "application/png", x_sendfile: true
+  end
 
   private
     def tax_params

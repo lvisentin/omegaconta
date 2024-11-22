@@ -1,3 +1,23 @@
-<header class="bg-red-500 py-4 flex items-center justify-center">
-    <h1>Omega conta</h1>
-</header>
+<div class="navbar bg-base-100 w-full justify-between">
+  <div class="flex-1 w-full">
+    <a class="btn btn-ghost text-xl">Omega Conta</a>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><%= link_to "Dashboard", dashboard_path %></li>
+        <li><%= link_to "Guias", taxes_path %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="flex-none">
+    <div class="dropdown dropdown-end">
+      <div class="flex items-center">
+        <% if user_signed_in?%>
+          <p class="mr-4"><%=current_user.email%></p>
+          <%= button_to "logout", destroy_user_session_path, method: :delete, class: "btn"  %>
+        <%else%>
+          <%= button_to "login",  new_user_session_path, class: "btn"  %>
+        <%end %>
+      </div>
+    </div>
+  </div>
+</div>
