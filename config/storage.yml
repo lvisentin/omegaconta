@@ -6,6 +6,13 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+# Use bin/rails credentials:edit to set the GCS secrets (as gcs:private_key_id|private_key)
+google:
+  service: GCS
+  credentials: <%= Rails.root.join("config/secrets/gcp.json") %>
+  project: omegaconta
+  bucket: bucket-guias
+
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3

@@ -22,8 +22,10 @@
   <body>
     <% if user_signed_in?%>
       <%= render 'shared/header' %>
+    <% else%>
+        <%= button_to "login",  new_user_session_path, class: "btn"  %>
     <%end%>
-    <main class="py-4 px-6">
+    <main class="py-0 px-6">
       <%= yield %>
     </main>
   </body>

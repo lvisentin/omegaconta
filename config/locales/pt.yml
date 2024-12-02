@@ -1,0 +1,43 @@
+pt:
+  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        tax:
+          attributes:
+            amount:
+              blank: "não pode ficar em branco"
+            description:
+              blank: "não pode ficar em branco"
+            tax_type:
+              blank: "não pode ficar em branco"
+            company_id:
+              blank: "não pode ficar em branco"
+            due_date:
+              blank: "não pode ficar em branco"
+            file:
+              blank: "não pode ficar em branco"
+            paid:
+              blank: "não pode ficar em branco"
+        company:
+          attributes:
+            name:
+              blank: "não pode ficar em branco"
+              too_short: "é muito curto (mínimo de %{count} caracteres)"
+              too_long: "é muito longo (máximo de %{count} caracteres)"
+            document:
+              blank: "não pode ficar em branco"
+              invalid: "não é válido"
+  helpers:
+    label:
+      company:
+        name: "Nome da Empresa"
+        document: "Documento (CNPJ)"
+      tax:
+        amount: "Valor (R$)"
+        description: Descrição
+        tax_type: "Tipo de Imposto"
+        company_id: "Empresa"
+        due_date: "Data de vencimento"
+        file: "Arquivo"
+        paid: "Pago"

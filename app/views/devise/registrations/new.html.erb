@@ -2,6 +2,21 @@
   <h1 class="text-3xl font-bold text-left">Sign Up</h1>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
+
+    <label class="form-control w-full max-w-xs">
+      <div class="label pl-0">
+        <%= f.label :first_name, class: "label-text"%>
+      </div>
+      <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "input input-bordered w-full max-w-xs rounded-md" %>
+    </label>
+
+    <label class="form-control w-full max-w-xs">
+      <div class="label pl-0">
+        <%= f.label :last_name, class: "label-text"%>
+      </div>
+      <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: "input input-bordered w-full max-w-xs rounded-md" %>
+    </label>
+
     <label class="form-control w-full max-w-xs">
       <div class="label pl-0">
         <%= f.label :email, class: "label-text"%>

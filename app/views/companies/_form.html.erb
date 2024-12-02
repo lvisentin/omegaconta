@@ -1,0 +1,32 @@
+<div class="card card-compact bg-base-100 w-full px-8 py-4 shadow-xl">
+    <%= form_with model: company do |form|%>
+    <label class="form-control w-full">
+        <div class="label pl-0">
+        <%= form.label :name, class: "label-text"%>
+        </div>
+        <%= form.text_field :name, autofocus: true, class: "input input-bordered w-full rounded-md" %>
+
+        <div class="label pl-0">
+            <% company.errors.full_messages_for(:name).each do |message| %>
+                <span class="label-text-alt text-red-500"><%= message %></span>
+            <%end %>
+        </div>
+    </label>
+
+    <label class="form-control w-full">
+        <div class="label pl-0">
+        <%= form.label :document, class: "label-text"%>
+        </div>
+        <%= form.text_field :document, autofocus: true, class: "input input-bordered w-full rounded-md" %>
+
+        <div class="label pl-0">
+            <% company.errors.full_messages_for(:document).each do |message| %>
+                <span class="label-text-alt text-red-500"><%= message %></span>
+            <%end %>
+        </div>
+    </label>
+    <div class="text-right">
+        <%= form.submit "Criar empresa", class:"btn btn-primary w-full max-w-[150px] mt-2 mb-4" %>
+    </div>
+    <%end%>
+</div>

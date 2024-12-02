@@ -65,3 +65,6 @@ end
 gem "devise", "~> 4.9"
 
 gem "tailwindcss-rails", "~> 3.0"
+gem "image_processing", ">= 1.2"
+gem "google-cloud-storage", "~> 1.11", require: false
+gem "money-rails"

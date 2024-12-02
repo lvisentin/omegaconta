@@ -1,54 +1,102 @@
-<%= form_with model: tax do |form|%>
-  <div>
-    <%= form.label :amount%><br/>
-    <%= form.number_field :amount%>
-    <% tax.errors.full_messages_for(:amount).each do |message|%>
-      <div><%=message%></div>
+<div class="card card-compact bg-base-100 w-full px-8 py-4 shadow-xl">
+    <%= form_with model: tax do |form|%>
+        <label class="form-control w-full">
+            <div class="label pl-0">
+            <%= form.label :amount, class: "label-text"%>
+            </div>
+            <%= form.number_field :amount, value: number_to_currency(form.object.amount, delimiter: '', unit: ''), step: 0.01, autofocus: true, class: "input input-bordered w-full rounded-md currency-input-mask" %>
+
+            <div class="label pl-0">
+                <% tax.errors.full_messages_for(:amount).each do |message| %>
+                    <span class="label-text-alt text-red-500"><%= message %></span>
+                <%end %>
+            </div>
+        </label>
+
+        <label class="form-control w-full">
+            <div class="label pl-0">
+            <%= form.label :description, class: "label-text"%>
+            </div>
+            <%= form.text_field :description, autofocus: true, class: "input input-bordered w-full rounded-md" %>
+
+            <div class="label pl-0">
+                <% tax.errors.full_messages_for(:description).each do |message| %>
+                    <span class="label-text-alt text-red-500"><%= message %></span>
+                <%end %>
+            </div>
+        </label>
+
+        <label class="form-control w-full">
+            <div class="label pl-0">
+            <%= form.label :tax_type, class: "label-text"%>
+            </div>
+            <%= form.text_field :tax_type, autofocus: true, class: "input input-bordered w-full rounded-md" %>
+
+            <div class="label pl-0">
+                <% tax.errors.full_messages_for(:tax_type).each do |message| %>
+                    <span class="label-text-alt text-red-500"><%= message %></span>
+                <%end %>
+            </div>
+        </label>
+
+        <div class="flex items-start gap-x-4">
+            <label class="form-control w-full">
+                <div class="label pl-0">
+                <%= form.label :company_id, class: "label-text"%>
+                </div>
+                <% if current_user.is_accountant? %>
+                    <%= form.collection_select :company_id, Company.all, :id, :company_option,  { include_blank: "Selecione uma empresa" }, {class: "w-full"}%>
+                <%else %>
+            <%= form.collection_select :company_id, Company.select{|c| c.user_id == current_user.id}, :id, :company_option, { include_blank: "Selecione uma empresa" }, {class: "w-full"}%>
+                <%end %>
+
+                <div class="label pl-0">
+                    <% tax.errors.full_messages_for(:company_id).each do |message| %>
+                        <span class="label-text-alt text-red-500"><%= message %></span>
+                    <%end %>
+                </div>
+            </label>
+
+            <label class="form-control w-full">
+                <div class="label pl-0">
+                <%= form.label :due_date, class: "label-text"%>
+                </div>
+                <%= form.date_field :due_date, class: "w-full" %>
+
+                <div class="label pl-0">
+                    <% tax.errors.full_messages_for(:due_date).each do |message| %>
+                        <span class="label-text-alt text-red-500"><%= message %></span>
+                    <%end %>
+                </div>
+            </label>
+        </div>
+
+        <div class="flex items-center justify-start">
+            <label class="form-control w-full max-w-sm">
+                <div class="label pl-0">
+                <%= form.label :file, class: "label-text"%>
+                </div>
+                <%= form.file_field :file %>
+
+                <div class="label pl-0">
+                    <% tax.errors.full_messages_for(:file).each do |message| %>
+                        <span class="label-text-alt text-red-500"><%= message %></span>
+                    <%end %>
+                </div>
+            </label>
+
+
+            <div class="flex flex-col">
+                <%= form.label :paid%>
+                <%= form.checkbox :paid%>
+                <% tax.errors.full_messages_for(:paid).each do |message|%>
+                <div class="text-xs text-red-500 pt-2"><%=message%></div>
+                <%end%>
+            </div>
+        </div>
+
+        <div class="text-right">
+            <%= form.submit "Criar guia", class:"btn btn-primary w-full max-w-[150px] mt-2 mb-4" %>
+        </div>
     <%end%>
-  </div>
-  <div>
-    <%= form.label :description%><br/>
-    <%= form.text_field :description%>
-    <% tax.errors.full_messages_for(:description).each do |message|%>
-      <div><%=message%></div>
-    <%end%>
-  </div>
-  <div>
-    <%= form.label :tax_type%><br/>
-    <%= form.text_field :tax_type%>
-    <% tax.errors.full_messages_for(:tax_type).each do |message|%>
-      <div><%=message%></div>
-    <%end%>
-  </div>
-  <div>
-    <%= form.label :company_id%><br/>
-    <%= form.collection_select :company_id, Company.order(:name), :id, :name%>
-    <% tax.errors.full_messages_for(:company_id).each do |message|%>
-      <div><%=message%></div>
-    <%end%>
-  </div>
-  <div>
-    <%= form.label :due_date%><br/>
-    <%= form.date_field :due_date%>
-    <% tax.errors.full_messages_for(:due_date).each do |message|%>
-      <div><%=message%></div>
-    <%end%>
-  </div>
-  <div>
-    <%= form.label :file%><br/>
-    <%= form.text_field :file%>
-    <% tax.errors.full_messages_for(:file).each do |message|%>
-      <div><%=message%></div>
-    <%end%>
-  </div>
-  <div>
-    <%= form.label :paid%><br/>
-    <%= form.checkbox :paid%>
-    <% tax.errors.full_messages_for(:paid).each do |message|%>
-      <div><%=message%></div>
-    <%end%>
-  </div>
-  <div>
-    <%= form.submit %>
-  </div>
-<%end%>
+</div>

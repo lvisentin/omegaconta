@@ -1,13 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-
-  root "companies#index"
-  resources :taxes do
-    collection do
-      post :download
-      get :download_file
-    end
-  end
+  root "dashboard#index"
+  resources :taxes
   resources :companies
 
   get "dashboard" => "dashboard#index"

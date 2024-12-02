@@ -1,1 +1,10 @@
-<h1>dashboard</h1>
+<div class="card">
+    <%if current_user != nil %>
+        <h1>Olá, <%= current_user.first_name %> <%= current_user.last_name %>
+
+        <%if current_user.is_accountant? %>
+            <%= @clients_count %>
+        <%end %>
+    <%end %>
+
+</div>

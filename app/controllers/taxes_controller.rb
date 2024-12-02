@@ -3,7 +3,13 @@ class TaxesController < ApplicationController
   require "open-uri"
 
   def index
-    @taxes = Tax.all
+    if user_signed_in? and current_user.is_accountant?
+      @taxes = Tax.joins(company: :user)
+          .where(users: { accountant_id: current_user.id })
+    else
+      @taxes = Tax.select { |tax| tax.company.user_id == current_user.id } unless !user_signed_in?
+    end
+
   end
 
   def show
@@ -16,6 +22,7 @@ class TaxesController < ApplicationController
 
   def create
     @tax = Tax.new(tax_params)
+    @tax.amount = strip_amount(params[:tax][:amount])
 
     if @tax.save
       redirect_to @tax
@@ -43,10 +50,6 @@ class TaxesController < ApplicationController
     @tax.destroy
 
     redirect_to root_path, status: :see_other
-  end
-
-  def download
-    send_file "/home/blog/downloads/away.png", type: "application/png", x_sendfile: true
   end
 
   private

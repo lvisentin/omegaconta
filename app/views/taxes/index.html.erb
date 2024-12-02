@@ -1,4 +1,10 @@
-<h1>Minhas Guias</h1>
+<div class="flex items-center justify-between mb-2">
+    <h1 class="pl-2 pt-6 pb-4 text-2xl font-semibold">Minhas Guias</h1>
+    <% if current_user.is_accountant? %>
+        <%= link_to "nova guia",  new_tax_path, class: "btn btn-primary"  %>
+    <%end %>
+</div>
+
 <div class="overflow-x-auto">
   <table class="table">
     <thead>
@@ -8,7 +14,7 @@
         <th>Data de vencimento</th>
         <th>Valor</th>
         <th>Pago</th>
-        <th>Baixar</th>
+        <th>Arquivo</th>
       </tr>
     </thead>
     <tbody>
@@ -16,13 +22,15 @@
         <tr>
           <th><%= tax.id %></th>
           <th><%= tax.company.name %></th>
-          <th><%= tax.due_date.strftime("%d/%m/%Y") %></th>
+          <th><%= tax.due_date ? tax.due_date.strftime("%d/%m/%Y") : "ads" %></th>
           <th><%= number_to_currency tax.amount %></th>
-          <th><%= tax.paid %></th>
+          <th><%= tax.paid ? "Pago": "Não Pago" %></th>
           <th>
-            <%= link_to "Download" ,:action => :download %>
-
-            <%# <%= button_to "Baixar", download_taxes_path, method: :post, params: { tax_url: tax.file } %> 
+                <% if tax.file.url %>
+                  <%= link_to "Ver", tax.file.url, target: "_blank" %>
+                <%else %>
+                    Nenhum arquivo
+                <% end %>
           </th>
         </tr>
       <%end %>
